@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:shake_flutter/enums/log_level.dart';
 import 'package:shake_flutter/enums/shake_screen.dart';
@@ -82,7 +81,7 @@ class Shake {
   /// The default one is [ShakeScreen.newTicket]
   static Future<void> show([shakeScreen = ShakeScreen.newTicket]) async {
     await _channel.invokeMethod('show', {
-      'shakeScreen': describeEnum(shakeScreen),
+      'shakeScreen': shakeScreen.name,
     });
   }
 
@@ -159,7 +158,7 @@ class Shake {
   /// [ShakeScreen.home] or [ShakeScreen.newTicket].
   static Future<void> setDefaultScreen(ShakeScreen shakeScreen) async {
     await _channel.invokeMethod('setDefaultScreen', {
-      'shakeScreen': describeEnum(shakeScreen),
+      'shakeScreen': shakeScreen.name,
     });
   }
 
@@ -241,7 +240,7 @@ class Shake {
   /// Adds custom log into the activity history.
   static Future<void> log(LogLevel logLevel, String message) async {
     await _channel.invokeMethod('log', {
-      'level': describeEnum(logLevel),
+      'level': logLevel.name,
       'message': message,
     });
   }
